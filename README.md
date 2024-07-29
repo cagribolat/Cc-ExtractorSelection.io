@@ -1,28 +1,32 @@
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/470ccadf-b97d-4b9f-8d5d-6bc04d46e6c9" alt="cc" />
+  <img src="https://raw.githubusercontent.com/cagribolat/Cc-ExtractorSelection.io/main/white%2Byellow.png" alt="cc" />
   <br>
   <strong>Cc-ExtractorSelection</strong>
- <br>
+  <br>
   <p align="center">
- https://cagribolat.github.io/Cc-ExtractorSelection.io/ <br>
+  https://cagribolat.github.io/Cc-ExtractorSelection.io/ <br>
 
 
 
 
 
 
-<b>Özellikler</b>.</p>
 
-Bu araç, SRT dosyalarında sadece BÜYÜK HARF ile yazılmış bölümleri zaman damgalarıyla birlikte ayırır.
-Renk seçimi yaparak metinlerin görünümünü değiştirebilirsiniz.Renk seçilmezse işlemi yapar, var olan dosya adı+forced.srt olarak kaydedilir.
-Renk seçilir ise işlemi yapar, var olan dosya adı+seçilen renk adı+forced.srt olarak kaydedilir.
- Aşağıdaki adımları izleyerek aracı kullanabilirsiniz:
+<b>**Özellikler**</b>.</p>
+
+Bu araç, SRT dosyalarında sadece **BÜYÜK HARF** ile yazılmış bölümleri zaman damgalarıyla birlikte ayırır.
+Renk seçimi yaparak metinlerin görünümünü değiştirebilirsiniz.
+Renk seçilmezse işlemi yapar, var olan dosya adı+forced.srt olarak kaydedilir.
+Renk seçilir ise işlemi yapar, **var olan dosya adı+seçilen renk adı+forced.srt** olarak kaydedilir.
+
+ **Aşağıdaki adımları izleyerek aracı kullanabilirsiniz**:
 
 - SRT dosyasını seçin.
 - Metinler için bir renk seçin.
 - "İşle ve Kaydet" düğmesine tıklayarak değişiklikleri uygulayın ve güncellenmiş SRT dosyasını indirin.
 
-<b>Katkıda Bulunma</b>.</p>
+<b>**Katkıda Bulunma**</b>.</p>
+
 Eğer Cc-ExtractorSelection geliştirmesine katkıda bulunmak isterseniz, lütfen GitHub deposunu ziyaret edin ve katkıda bulunmak istediğiniz özellikleri veya hataları bildirin.
 
 
@@ -30,11 +34,13 @@ Eğer Cc-ExtractorSelection geliştirmesine katkıda bulunmak isterseniz, lütfe
 ________________________________________________________________________________________________________________________________________________________________________________________________________
 
 <b>English</b></p>
-<b>Features</b></p>
+<b>**Features**</b></p>
 
 Features.
 
-This tool separates sections written in UPPER CASE in SRT files along with timestamps. You can change the appearance of the text by selecting a color. If no color is selected, the tool will perform the operation and save the file as original_filename_forced.srt. If a color is selected, the tool will perform the operation and save the file as original_filename_colorname_forced.srt.
+This tool separates sections written in **UPPER CASE** in SRT files along with timestamps. You can change the appearance of the text by selecting a color. 
+If no color is selected, the tool will perform the operation and save the file as original_filename_forced.srt.
+If a color is selected, the tool will perform the operation and save the file as original_filename_colorname_forced.srt.
 
 To use the tool, follow these steps:
 
