@@ -7,7 +7,7 @@
     <style>
         body {
             height: 100vh;
-            margin: 5px; /* Tarayıcı kenarından 5px boşluk */
+            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -23,61 +23,60 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             text-align: center;
-            margin: 5px; /* İçerik kutusu etrafında 5px boşluk */
+            width: 100%;
+            max-width: 600px;
         }
 
         .header-text {
             font-size: 16px;
-            color: #000000;
-            font-weight: bold;
+            color: #000000; /* Black color */
+            font-weight: bold; /* Bold text */
             margin-bottom: 10px;
-        }
-
-        #saveButton, #defaultBtn, .color-buttons button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 5px; /* 5px yukarı taşımak için margin-top */
-            font-weight: bold;
-            color: #ffffff;
-            transition: all 0.3s ease;
         }
 
         #saveButton {
             background-color: green;
-        }
-
-        #defaultBtn {
-            background-color: #cccccc;
-        }
-
-        .color-buttons button {
-            margin-right: 10px;
-            border: 2px solid #ffffff;
-            opacity: 0.5;
-            background-color: #ffffff;
-            color: #000000;
-        }
-
-        .color-buttons button.selected {
-            opacity: 1;
-            border: 3px solid #ff0000;
-        }
-
-        .color-buttons button:hover {
-            opacity: 0.8;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
         }
 
         #srtContent {
-            width: 300px;
+            width: 100%;
             height: 200px;
             margin-top: 10px;
         }
 
-        /* Boşluk eklemek için sınıf */
-        .margin-top-5 {
-            margin-top: 5px;
+        .color-buttons {
+            margin-bottom: 20px; /* Space between color buttons and file input */
+        }
+
+        .color-buttons button {
+            margin-right: 10px;
+            padding: 10px 20px;
+            border: 2px solid #ffffff; /* Default border color */
+            cursor: pointer;
+            font-weight: bold;
+            background-color: #ffffff; /* Default background color */
+            color: #000000; /* Default text color */
+            opacity: 0.5; /* Default opacity */
+            transition: all 0.3s ease; /* Transition effect */
+        }
+
+        .color-buttons button.selected {
+            opacity: 1; /* Fully opaque */
+            border: 3px solid #ff0000; /* Red and thick border for selected button */
+        }
+
+        .color-buttons button:hover {
+            opacity: 0.8; /* Slightly more opaque on hover */
+        }
+
+        .file-input-container {
+            margin-bottom: 20px; /* Space between file input and process button */
         }
     </style>
 </head>
@@ -85,56 +84,64 @@
     <div id="container">
         <div class="header-text">The human idea was built through the collaboration of Python and ChatGPT.</div>
         <h1>Cc-Extractor Selection</h1>
-        <div class="color-buttons">
-            <button id="defaultBtn" onclick="setColor(null, this)">Default</button>
-            <button id="whiteBtn" onclick="setColor('#ffffff', this)">White</button>
-            <button id="yellowBtn" onclick="setColor('#ffff00', this)">Yellow</button>
+
+        <!-- File input section -->
+        <div class="file-input-container">
+            <label for="srtFile">Select SRT File:</label>
+            <input type="file" id="srtFile" accept=".srt">
         </div>
 
-        <label for="srtFile" class="margin-top-5">Select SRT File:</label>
-        <input type="file" id="srtFile" accept=".srt"><br><br>
+        <!-- Color buttons -->
+        <div class="color-buttons">
+            <button id="defaultBtn" onclick="setColor('#cccccc', this)" style="background-color: #cccccc; color: #000000;">Default</button>
+            <button id="whiteBtn" onclick="setColor('#ffffff', this)" style="background-color: #ffffff; color: #000000;">White</button>
+            <button id="yellowBtn" onclick="setColor('#ffff00', this)" style="background-color: #ffff00; color: #000000;">Yellow</button>
+        </div>
 
+        <!-- Process button -->
         <button id="saveButton" onclick="processSrt()">Process and Save</button><br><br>
 
         <textarea id="srtContent" rows="10" cols="50" readonly></textarea>
     </div>
 
     <script>
-        let selectedColor = null;
+        let selectedColor = '#cccccc'; // Default color
 
         function setColor(color, button) {
             selectedColor = color;
+            // Remove 'selected' class from all buttons
             document.querySelectorAll('.color-buttons button').forEach(btn => {
                 btn.classList.remove('selected');
                 btn.style.backgroundColor = '#ffffff';
                 btn.style.color = '#000000';
-                btn.style.border = '2px solid #ffffff';
-                btn.style.opacity = '0.5';
+                btn.style.border = '2px solid #ffffff'; // Default border
+                btn.style.opacity = '0.5'; // Default opacity
             });
+            // Update the clicked button's style
             button.classList.add('selected');
             button.style.backgroundColor = color || '#cccccc';
-            button.style.color = (color === '#ffffff' || !color) ? '#000000' : '#ffffff';
-            button.style.border = '3px solid #ff0000';
-            button.style.opacity = '1';
+            button.style.color = (color === '#ffffff' || !color) ? '#000000' : '#ffffff'; // Text color
+            button.style.border = '3px solid #ff0000'; // Red and thick border for selected button
+            button.style.opacity = '1'; // Fully opaque
         }
 
         function processSrt() {
-            const fileInput = document.getElementById('srtFile');
-            const srtContent = document.getElementById('srtContent');
+            var fileInput = document.getElementById('srtFile');
+            var srtContent = document.getElementById('srtContent');
 
             if (!fileInput.files || !fileInput.files[0]) {
                 alert('Please select an SRT file.');
                 return;
             }
 
-            const file = fileInput.files[0];
-            const reader = new FileReader();
+            var file = fileInput.files[0];
+            var reader = new FileReader();
 
             reader.onload = function(event) {
-                const content = event.target.result;
-                const decodedContent = new TextDecoder('UTF-8').decode(content);
+                var content = event.target.result;
+                var decodedContent = new TextDecoder('UTF-8').decode(content);
 
-                const processedContent = processAndSaveSrt(decodedContent, file.name);
+                var processedContent = processAndSaveSrt(decodedContent, file.name);
                 srtContent.value = processedContent;
             };
 
@@ -142,29 +149,37 @@
         }
 
         function processAndSaveSrt(srtContent, fileName) {
-            const lines = srtContent.split('\n');
-            const processedLines = [];
-            let currentTimecode = '';
+            var lines = srtContent.split('\n');
+            var processedLines = [];
+            var currentTimecode = '';
 
-            lines.forEach(line => {
-                line = line.trim();
+            for (var i = 0; i < lines.length; i++) {
+                var line = lines[i].trim();
 
-                if (line === '') return;
+                if (line === '') {
+                    continue; // Skip empty lines
+                }
 
                 if (line.match(/^\d{2}:\d{2}:\d{2},\d{3} --> \d{2}:\d{2}:\d{2},\d{3}$/)) {
+                    // If the line is a timecode, update the current timecode
                     currentTimecode = line;
                 } else if (line === line.toUpperCase() && line !== line.toLowerCase()) {
-                    processedLines.push(currentTimecode + '\n' + (selectedColor ? `<font color="${selectedColor}">${line}</font>` : line));
+                    // If the line contains only uppercase letters and is not all lowercase
+                    // Add it to processed lines with the current timecode
+                    processedLines.push(currentTimecode + '\n' + `<font color="${selectedColor}">${line}</font>`);
                 }
-            });
+            }
 
-            const processedContent = processedLines.join('\n\n');
+            // Join processed lines
+            var processedContent = processedLines.join('\n\n');
 
-            const blob = new Blob([processedContent], {type: 'text/plain'});
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
+            // Save processed content
+            var blob = new Blob([processedContent], {type: 'text/plain'});
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
             a.href = url;
-            a.download = fileName.replace('.srt', '') + (selectedColor ? '_' + getColorName(selectedColor) : '') + '_forced.srt';
+            // If a color is selected and it's not the default color, add color name to the file name, otherwise just append '_forced'
+            a.download = fileName.replace('.srt', '') + (selectedColor !== '#cccccc' ? '_' + getColorName(selectedColor) : '') + '_forced.srt'; 
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -181,17 +196,14 @@
             return colorNames[hexColor] || 'unknown';
         }
 
-        // Click event to remove the selected class from buttons
-        document.body.addEventListener('click', function(event) {
+        // Remove border from color buttons when clicking outside of them
+        document.addEventListener('click', function(event) {
             if (!event.target.closest('.color-buttons')) {
                 document.querySelectorAll('.color-buttons button').forEach(btn => {
                     btn.classList.remove('selected');
-                    btn.style.backgroundColor = '#ffffff';
-                    btn.style.color = '#000000';
-                    btn.style.border = '2px solid #ffffff';
-                    btn.style.opacity = '0.5';
+                    btn.style.border = '2px solid #ffffff'; // Default border
+                    btn.style.opacity = '0.5'; // Default opacity
                 });
-                selectedColor = null; // Reset selected color
             }
         });
     </script>
