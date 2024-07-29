@@ -10,9 +10,11 @@
 
 <br><b>Özellikler</b></p>
 
-Bu araç, SRT dosyalarında sadece **BÜYÜK HARF** ile yazılmış bölümleri zaman damgalarıyla birlikte ayırır.
-Renk seçimi yaparak metinlerin görünümünü değiştirebilirsiniz.Renk seçilmezse işlemi yapar, **var olan dosya adı+forced.srt** olarak kaydedilir.
+Bu araç, SRT dosyalarında sadece **BÜYÜK HARF** ile yazılmış bölümleri zaman damgalarıyla birlikte ayırır. <br>
+Default butonu ise sadece **BÜYÜK HARF** ile yazılmış bölümleri zaman damgalarıyla 
+birlikte ayırıp **var olan dosya adı+forced.srt** olarak kaydedilir. <br>
 Renk seçilir ise işlemi yapar, **var olan dosya adı+seçilen renk adı+forced.srt** olarak kaydedilir.
+
 
  **Aşağıdaki adımları izleyerek aracı kullanabilirsiniz**:
 
@@ -33,7 +35,9 @@ ________________________________________________________________________________
 
 
 
-This tool separates sections written in **UPPER CASE** in SRT files along with timestamps. You can change the appearance of the text by selecting a color. If no color is selected, the tool will perform the operation and **save the file as original_filename_forced.srt**. If a color is selected, the tool will perform the operation and **save the file as original_filename_colorname_forced.srt**.
+This tool separates only **LARGE LETTERS** sections in SRT files with timestamps.
+The Default button separates only the sections written in **LARGE LETTERS** with timestamps and saves them as **existing filename+forced.srt**.
+If the color is selected, it does the operation and saves as **existing file name+selected color name+forced.srt**.
 
 **To use the tool, follow these steps**:
 
