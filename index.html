@@ -74,6 +74,11 @@
             height: 200px;
             margin-top: 10px;
         }
+
+        /* Boşluk eklemek için sınıf */
+        .margin-top-5 {
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
@@ -86,7 +91,7 @@
             <button id="yellowBtn" onclick="setColor('#ffff00', this)">Yellow</button>
         </div>
 
-        <label for="srtFile">Select SRT File:</label>
+        <label for="srtFile" class="margin-top-5">Select SRT File:</label>
         <input type="file" id="srtFile" accept=".srt"><br><br>
 
         <button id="saveButton" onclick="processSrt()">Process and Save</button><br><br>
@@ -178,7 +183,6 @@
 
         // Click event to remove the selected class from buttons
         document.body.addEventListener('click', function(event) {
-            // Check if the click is not on a button or its parent
             if (!event.target.closest('.color-buttons')) {
                 document.querySelectorAll('.color-buttons button').forEach(btn => {
                     btn.classList.remove('selected');
