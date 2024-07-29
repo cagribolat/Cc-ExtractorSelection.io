@@ -92,7 +92,7 @@
     </div>
 
     <script>
-        let selectedColor = '#ffffff'; // Default color
+        let selectedColor = null; // Default no color
 
         function setColor(color, button) {
             selectedColor = color;
@@ -154,7 +154,11 @@
                 } else if (line === line.toUpperCase() && line !== line.toLowerCase()) {
                     // If the line contains only uppercase letters and is not all lowercase
                     // Add it to processed lines with the current timecode
-                    processedLines.push(currentTimecode + '\n' + `<font color="${selectedColor}">${line}</font>`);
+                    if (selectedColor) {
+                        processedLines.push(currentTimecode + '\n' + `<font color="${selectedColor}">${line}</font>`);
+                    } else {
+                        processedLines.push(currentTimecode + '\n' + line);
+                    }
                 }
             }
 
@@ -166,7 +170,8 @@
             var url = URL.createObjectURL(blob);
             var a = document.createElement('a');
             a.href = url;
-            a.download = fileName.replace('.srt', '') + '_' + getColorName(selectedColor) + '_forced.srt'; // File name; remove ".srt" and append "_color_forced.srt"
+            // If a color is selected, add color name to the file name, otherwise just append '_forced'
+            a.download = fileName.replace('.srt', '') + (selectedColor ? '_' + getColorName(selectedColor) : '') + '_forced.srt'; 
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
