@@ -32,6 +32,12 @@
             margin-bottom: 10px;
         }
 
+        .read-me {
+            font-size: 14px;
+            color: #333333;
+            margin-bottom: 20px;
+        }
+
         #saveButton {
             background-color: green;
             color: white;
@@ -76,10 +82,17 @@
 </head>
 <body>
     <div id="container">
+        <div class="read-me">
+            <strong>Read Me:</strong><br>
+            This tool allows you to process SRT files by selecting the color for text display. You can choose between different colors and then click "Process and Save" to download the modified SRT file.<br><br>
+            - To use, select an SRT file.<br>
+            - Choose a color for text using the color buttons.<br>
+            - Click "Process and Save" to apply the changes and download the updated SRT file.<br><br>
+            If no color is selected, the SRT file will be saved without any color modifications.
+        </div>
         <div class="header-text">The human idea was built through the collaboration of Python and ChatGPT.</div>
         <h1>Cc Extractor</h1>
         <div class="color-buttons">
-            <button id="blackBtn" onclick="setColor('#000000', this)" style="background-color: #000000; color: #ffffff;">Black</button>
             <button id="whiteBtn" onclick="setColor('#ffffff', this)" style="background-color: #ffffff; color: #000000;">White</button>
             <button id="yellowBtn" onclick="setColor('#ffff00', this)" style="background-color: #ffff00; color: #000000;">Yellow</button>
         </div>
@@ -93,7 +106,7 @@
     </div>
 
     <script>
-        let selectedColor = '#ffffff'; // Default color
+        let selectedColor = null; // Default no color
 
         function setColor(color, button) {
             selectedColor = color;
@@ -155,7 +168,11 @@
                 } else if (line === line.toUpperCase() && line !== line.toLowerCase()) {
                     // If the line contains only uppercase letters and is not all lowercase
                     // Add it to processed lines with the current timecode
-                    processedLines.push(currentTimecode + '\n' + `<font color="${selectedColor}">${line}</font>`);
+                    if (selectedColor) {
+                        processedLines.push(currentTimecode + '\n' + `<font color="${selectedColor}">${line}</font>`);
+                    } else {
+                        processedLines.push(currentTimecode + '\n' + line);
+                    }
                 }
             }
 
@@ -167,7 +184,8 @@
             var url = URL.createObjectURL(blob);
             var a = document.createElement('a');
             a.href = url;
-            a.download = fileName.replace('.srt', '') + '_' + getColorName(selectedColor) + '_forced.srt'; // File name; remove ".srt" and append "_color_forced.srt"
+            // If a color is selected, add color name to the file name, otherwise just append '_forced'
+            a.download = fileName.replace('.srt', '') + (selectedColor ? '_' + getColorName(selectedColor) : '') + '_forced.srt'; 
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -179,7 +197,6 @@
         function getColorName(hexColor) {
             const colorNames = {
                 '#ffff00': 'yellow',
-                '#000000': 'black',
                 '#ffffff': 'white'
             };
             return colorNames[hexColor] || 'unknown';
