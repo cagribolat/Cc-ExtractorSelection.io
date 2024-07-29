@@ -79,6 +79,7 @@
         <div class="header-text">The human idea was built through the collaboration of Python and ChatGPT.</div>
         <h1>Cc-Extractor Selection</h1>
         <div class="color-buttons">
+            <button id="defaultBtn" onclick="setColor(null, this)" style="background-color: #cccccc; color: #000000;">Default</button>
             <button id="whiteBtn" onclick="setColor('#ffffff', this)" style="background-color: #ffffff; color: #000000;">White</button>
             <button id="yellowBtn" onclick="setColor('#ffff00', this)" style="background-color: #ffff00; color: #000000;">Yellow</button>
         </div>
@@ -106,8 +107,8 @@
             });
             // Update the clicked button's style
             button.classList.add('selected');
-            button.style.backgroundColor = color;
-            button.style.color = (color === '#ffffff') ? '#000000' : '#ffffff'; // Text color
+            button.style.backgroundColor = color || '#cccccc';
+            button.style.color = (color === '#ffffff' || !color) ? '#000000' : '#ffffff'; // Text color
             button.style.border = '3px solid #ff0000'; // Red and thick border for selected button
             button.style.opacity = '1'; // Fully opaque
         }
