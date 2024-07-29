@@ -87,7 +87,7 @@
             Bu araç, SRT dosyalarını işlemek için kullanılır. Renk seçimi yaparak metinlerin görünümünü değiştirebilirsiniz. Aşağıdaki adımları izleyerek aracı kullanabilirsiniz:<br><br>
             - SRT dosyasını seçin.<br>
             - Metinler için bir renk seçin.<br>
-            - "Process and Save" düğmesine tıklayarak değişiklikleri uygulayın ve güncellenmiş SRT dosyasını indirin.<br><br>
+            - "İşle ve Kaydet" düğmesine tıklayarak değişiklikleri uygulayın ve güncellenmiş SRT dosyasını indirin.<br><br>
             Renk seçilmediğinde, SRT dosyası renk değişikliği olmadan kaydedilecektir.
         </div>
         <div class="header-text">İnsan fikri; Python ve ChatGPT işbirliğiyle inşa edilmiştir.</div>
