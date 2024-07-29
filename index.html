@@ -79,7 +79,6 @@
         <div class="header-text">The human idea was built through the collaboration of Python and ChatGPT.</div>
         <h1>Cc Extractor</h1>
         <div class="color-buttons">
-            <button id="blackBtn" onclick="setColor('#000000', this)" style="background-color: #000000; color: #ffffff;">Black</button>
             <button id="whiteBtn" onclick="setColor('#ffffff', this)" style="background-color: #ffffff; color: #000000;">White</button>
             <button id="yellowBtn" onclick="setColor('#ffff00', this)" style="background-color: #ffff00; color: #000000;">Yellow</button>
         </div>
@@ -179,7 +178,6 @@
         function getColorName(hexColor) {
             const colorNames = {
                 '#ffff00': 'yellow',
-                '#000000': 'black',
                 '#ffffff': 'white'
             };
             return colorNames[hexColor] || 'unknown';
