@@ -84,23 +84,23 @@
     <div id="container">
         <div class="read-me">
             <strong>Read Me:</strong><br>
-            This tool allows you to process SRT files by selecting the color for text display. You can choose between different colors and then click "Process and Save" to download the modified SRT file.<br><br>
-            - To use, select an SRT file.<br>
-            - Choose a color for text using the color buttons.<br>
-            - Click "Process and Save" to apply the changes and download the updated SRT file.<br><br>
-            If no color is selected, the SRT file will be saved without any color modifications.
+            Bu araç, SRT dosyalarını işlemek için kullanılır. Renk seçimi yaparak metinlerin görünümünü değiştirebilirsiniz. Aşağıdaki adımları izleyerek aracı kullanabilirsiniz:<br><br>
+            - SRT dosyasını seçin.<br>
+            - Metinler için bir renk seçin.<br>
+            - "Process and Save" düğmesine tıklayarak değişiklikleri uygulayın ve güncellenmiş SRT dosyasını indirin.<br><br>
+            Renk seçilmediğinde, SRT dosyası renk değişikliği olmadan kaydedilecektir.
         </div>
-        <div class="header-text">The human idea was built through the collaboration of Python and ChatGPT.</div>
+        <div class="header-text">İnsan fikri; Python ve ChatGPT işbirliğiyle inşa edilmiştir.</div>
         <h1>Cc Extractor</h1>
         <div class="color-buttons">
-            <button id="whiteBtn" onclick="setColor('#ffffff', this)" style="background-color: #ffffff; color: #000000;">White</button>
-            <button id="yellowBtn" onclick="setColor('#ffff00', this)" style="background-color: #ffff00; color: #000000;">Yellow</button>
+            <button id="whiteBtn" onclick="setColor('#ffffff', this)" style="background-color: #ffffff; color: #000000;">Beyaz</button>
+            <button id="yellowBtn" onclick="setColor('#ffff00', this)" style="background-color: #ffff00; color: #000000;">Sarı</button>
         </div>
 
-        <label for="srtFile">Select SRT File:</label>
+        <label for="srtFile">SRT Dosyası Seçin:</label>
         <input type="file" id="srtFile" accept=".srt"><br><br>
 
-        <button id="saveButton" onclick="processSrt()">Process and Save</button><br><br>
+        <button id="saveButton" onclick="processSrt()">İşle ve Kaydet</button><br><br>
 
         <textarea id="srtContent" rows="10" cols="50" readonly></textarea>
     </div>
@@ -131,7 +131,7 @@
             var srtContent = document.getElementById('srtContent');
 
             if (!fileInput.files || !fileInput.files[0]) {
-                alert('Please select an SRT file.');
+                alert('Lütfen bir SRT dosyası seçin.');
                 return;
             }
 
