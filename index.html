@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cc Extractor</title>
+    <title>Cc Extractor - Pro</title>
     <style>
         body {
             height: 100vh;
@@ -21,193 +21,217 @@
             background-color: rgba(255, 255, 255, 0.9);
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
             text-align: center;
-            width: 100%;
+            width: 90%;
             max-width: 600px;
         }
 
         .header-text {
-            font-size: 16px;
-            color: #000000; /* Black color */
-            font-weight: bold; /* Bold text */
+            font-size: 14px;
+            color: #333;
+            font-weight: bold;
             margin-bottom: 10px;
         }
 
         #saveButton {
-            background-color: green;
+            background-color: #28a745;
             color: white;
-            padding: 10px 20px;
+            padding: 12px 30px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 15px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        #saveButton:hover {
+            background-color: #218838;
         }
 
         #srtContent {
             width: 100%;
             height: 200px;
-            margin-top: 10px;
+            margin-top: 15px;
+            box-sizing: border-box;
+            resize: none;
+            font-family: monospace;
+            padding: 10px;
         }
 
         .color-buttons {
-            margin-bottom: 20px; /* Space between color buttons and file input */
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
         }
 
         .color-buttons button {
-            margin-right: 10px;
-            padding: 10px 20px;
-            border: 2px solid #ffffff; /* Default border color */
+            padding: 8px 20px;
+            border: 2px solid #ccc;
             cursor: pointer;
             font-weight: bold;
-            background-color: #ffffff; /* Default background color */
-            color: #000000; /* Default text color */
-            opacity: 0.5; /* Default opacity */
-            transition: all 0.3s ease; /* Transition effect */
+            background-color: #fff;
+            border-radius: 5px;
+            transition: all 0.2s;
         }
 
         .color-buttons button.selected {
-            opacity: 1; /* Fully opaque */
-            border: 3px solid #ff0000; /* Red and thick border for selected button */
-        }
-
-        .color-buttons button:hover {
-            opacity: 0.8; /* Slightly more opaque on hover */
+            border: 3px solid #ff0000;
+            transform: scale(1.05);
         }
 
         .file-input-container {
-            margin-bottom: 20px; /* Space between file input and process button */
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px dashed #aaa;
         }
     </style>
 </head>
 <body>
     <div id="container">
-        <div class="header-text">This tool separates only LARGE LETTERS sections in SRT files with timestamps. 
-            The Default button separates only the sections written in LARGE LETTERS with timestamps and saves them as existing filename+forced.srt. 
-            If the color is selected, it does the operation and saves as existing file name+selected color name+forced.srt..</div>
+        <div class="header-text">Separates lines containing uppercase letters or # with timestamps.</div>
+        <div class="header-text">The Human mind is Gemini-made.</div>
         <h1>Cc-Extractor Selection</h1>
 
-        <!-- File input section -->
         <div class="file-input-container">
-            <label for="srtFile">Select SRT File:</label>
+            <label for="srtFile">Choice file: </label>
             <input type="file" id="srtFile" accept=".srt">
         </div>
 
-        <!-- Color buttons -->
         <div class="color-buttons">
-            <button id="defaultBtn" onclick="setColor('#cccccc', this)" style="background-color: #cccccc; color: #000000;">Default</button>
-            <button id="whiteBtn" onclick="setColor('#ffffff', this)" style="background-color: #ffffff; color: #000000;">White</button>
-            <button id="yellowBtn" onclick="setColor('#ffff00', this)" style="background-color: #ffff00; color: #000000;">Yellow</button>
+            <button id="defaultBtn" onclick="setMode('default', '#cccccc', this)" style="background-color: #cccccc;">Default</button>
+            <button id="yellowBtn" onclick="setMode('color', '#ffff00', this)" style="background-color: #ffff00;">Yellow</button>
+            <button id="songBtn" onclick="setMode('song', '#00ffff', this)" style="background-color: #00ffff;">Song</button>
         </div>
 
-        <!-- Process button -->
-        <button id="saveButton" onclick="processSrt()">Process and Save</button><br><br>
-
-        <textarea id="srtContent" rows="10" cols="50" readonly></textarea>
+        <button id="saveButton" onclick="processSrt()">Process and Save</button>
+        <textarea id="srtContent" readonly placeholder="The result will be displayed here..."></textarea>
     </div>
 
     <script>
-        let selectedColor = '#cccccc'; // Default color
+        let selectedColor = '#cccccc';
+        let currentMode = 'default';
 
-        function setColor(color, button) {
+        // Başlangıç ayarları
+        window.onload = function() {
+            document.getElementById('srtFile').value = "";
+            document.getElementById('srtContent').value = "";
+            setMode('default', '#cccccc', document.getElementById('defaultBtn'));
+        };
+
+        function setMode(mode, color, button) {
+            currentMode = mode;
             selectedColor = color;
-            // Remove 'selected' class from all buttons
-            document.querySelectorAll('.color-buttons button').forEach(btn => {
-                btn.classList.remove('selected');
-                btn.style.backgroundColor = '#ffffff';
-                btn.style.color = '#000000';
-                btn.style.border = '2px solid #ffffff'; // Default border
-                btn.style.opacity = '0.5'; // Default opacity
-            });
-            // Update the clicked button's style
+            document.querySelectorAll('.color-buttons button').forEach(btn => btn.classList.remove('selected'));
             button.classList.add('selected');
-            button.style.backgroundColor = color || '#cccccc';
-            button.style.color = (color === '#ffffff' || !color) ? '#000000' : '#ffffff'; // Text color
-            button.style.border = '3px solid #ff0000'; // Red and thick border for selected button
-            button.style.opacity = '1'; // Fully opaque
         }
 
         function processSrt() {
-            var fileInput = document.getElementById('srtFile');
-            var srtContent = document.getElementById('srtContent');
-
-            if (!fileInput.files || !fileInput.files[0]) {
-                alert('Please select an SRT file.');
+            const fileInput = document.getElementById('srtFile');
+            if (!fileInput.files[0]) {
+                alert('Lütfen bir SRT dosyası seçin.');
                 return;
             }
 
-            var file = fileInput.files[0];
-            var reader = new FileReader();
+            const file = fileInput.files[0];
+            const reader = new FileReader();
 
-            reader.onload = function(event) {
-                var content = event.target.result;
-                var decodedContent = new TextDecoder('UTF-8').decode(content);
+            reader.onload = function(e) {
+                const buffer = e.target.result;
+                // UTF-8 olarak dene
+                let decoder = new TextDecoder('utf-8');
+                let content = decoder.decode(buffer);
 
-                var processedContent = processAndSaveSrt(decodedContent, file.name);
-                srtContent.value = processedContent;
+                // Eğer metinde bozulma varsa (yaygın Türkçe karakter testi) Windows-1254 dene
+                if (content.includes('')) {
+                    decoder = new TextDecoder('windows-1254');
+                    content = decoder.decode(buffer);
+                }
+
+                const processed = filterLogic(content, file.name);
+                document.getElementById('srtContent').value = processed;
             };
 
             reader.readAsArrayBuffer(file);
         }
 
-        function processAndSaveSrt(srtContent, fileName) {
-            var lines = srtContent.split('\n');
-            var processedLines = [];
-            var currentTimecode = '';
+        function filterLogic(content, fileName) {
+            // Satır sonlarını hem Windows (\r\n) hem Unix (\n) için standardize et
+            const lines = content.replace(/\r\n/g, '\n').split('\n');
+            let results = [];
+            let lastTime = "";
+            let counter = 1;
 
-            for (var i = 0; i < lines.length; i++) {
-                var line = lines[i].trim();
+            for (let i = 0; i < lines.length; i++) {
+                let line = lines[i].trim();
 
-                if (line === '') {
-                    continue; // Skip empty lines
-                }
+                if (line.includes(' --> ')) {
+                    lastTime = line;
+                } 
+                else if (line !== '' && !/^\d+$/.test(line)) {
+                    let isMatch = false;
 
-                if (line.match(/^\d{2}:\d{2}:\d{2},\d{3} --> \d{2}:\d{2}:\d{2},\d{3}$/)) {
-                    // If the line is a timecode, update the current timecode
-                    currentTimecode = line;
-                } else if (line === line.toUpperCase() && line !== line.toLowerCase()) {
-                    // If the line contains only uppercase letters and is not all lowercase
-                    // Add it to processed lines with the current timecode
-                    processedLines.push(currentTimecode + '\n' + `<font color="${selectedColor}">${line}</font>`);
+                    if (currentMode === 'song') {
+                        if (line.includes('#')) isMatch = true;
+                    } else {
+                        // Türkçe karakter duyarlı büyük harf kontrolü
+                        const upper = line.toLocaleUpperCase('tr-TR');
+                        const lower = line.toLocaleLowerCase('tr-TR');
+                        if (line === upper && upper !== lower) {
+                            isMatch = true;
+                        }
+                    }
+
+                    if (isMatch && lastTime) {
+                        let text = line;
+                        if (currentMode !== 'default') {
+                            text = `<font color="${selectedColor}">${line}</font>`;
+                        }
+                        results.push(`${counter}\n${lastTime}\n${text}`);
+                        counter++;
+                    }
                 }
             }
 
-            // Join processed lines
-            var processedContent = processedLines.join('\n\n');
-
-            // Save processed content
-            var blob = new Blob([processedContent], {type: 'text/plain'});
-            var url = URL.createObjectURL(blob);
-            var a = document.createElement('a');
-            a.href = url;
-            // If a color is selected and it's not the default color, add color name to the file name, otherwise just append '_forced'
-            a.download = fileName.replace('.srt', '') + (selectedColor !== '#cccccc' ? '_' + getColorName(selectedColor) : '') + '_forced.srt'; 
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-
-            return processedContent;
-        }
-
-        function getColorName(hexColor) {
-            const colorNames = {
-                '#ffff00': 'yellow',
-                '#ffffff': 'white'
-            };
-            return colorNames[hexColor] || 'unknown';
-        }
-
-        // Remove border from color buttons when clicking outside of them
-        document.addEventListener('click', function(event) {
-            if (!event.target.closest('.color-buttons')) {
-                document.querySelectorAll('.color-buttons button').forEach(btn => {
-                    btn.classList.remove('selected');
-                    btn.style.border = '2px solid #ffffff'; // Default border
-                    btn.style.opacity = '0.5'; // Default opacity
-                });
+            const finalOutput = results.join('\n\n');
+            if (finalOutput) {
+                // GitHub Pages ve tarayıcı güvenliği için indirme fonksiyonu çağrısı
+                setTimeout(() => download(finalOutput, fileName), 100);
+            } else {
+                alert("Kriterlere uygun metin bulunamadı!");
             }
-        });
+            return finalOutput;
+        }
+
+        function download(data, name) {
+            // UTF-8 BOM ekleyerek Türkçe karakterlerin Notepad'de doğru açılmasını sağla
+            const BOM = new Uint8Array([0xEF, 0xBB, 0xBF]);
+            const blob = new Blob([BOM, data], { type: "text/plain;charset=utf-8" });
+            const url = window.URL.createObjectURL(blob);
+            
+            let nameExt = "_forced";
+            if (currentMode === 'song') {
+                nameExt = "_song";
+            } else if (selectedColor === '#ffff00') {
+                nameExt = "_yellow_forced";
+            }
+
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = name.replace('.srt', '') + nameExt + ".srt";
+            
+            // Gizli linki dokümana ekle ve tetikle
+            document.body.appendChild(link);
+            link.click();
+            
+            // Temizlik
+            setTimeout(() => {
+                document.body.removeChild(link);
+                window.URL.revokeObjectURL(url);
+            }, 100);
+        }
     </script>
 </body>
 </html>
