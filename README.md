@@ -10,7 +10,7 @@
 
 ![EkranKayd2025-12-31181033-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/8cfac00b-a492-49bb-8080-8c7105e3a935)
 
-Cc-Extractor, SRT altyazı dosyalarındaki belirli bölümleri akıllı algoritmalarla ayıklayan pratik bir düzenleme aracıdır.
+
 
 **Özellikler**:
 
@@ -43,7 +43,7 @@ ________________________________________________________________________________
 
 English Description
 
-**Cc-Extractor** is a smart utility designed to filter and extract specific sections from SRT subtitle files with precision.
+
 
 **Key Features**:
 
